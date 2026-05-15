@@ -106,10 +106,22 @@ object Text {
 
 object TextProperties {
 
-    private val STRIP_COLOR_PATTERN = Pattern.compile("(?i)\\u00A7.")
-
     val Component.width: Int get() = McFont.width(this)
-    val Component.stripped: String get() = STRIP_COLOR_PATTERN.matcher(this.string).replaceAll("")
+
+    val Component.stripped: String get() = buildString {
+        var skip = false
+        for (c in this@stripped.string) {
+            if (skip) {
+                skip = false
+                continue
+            }
+            if (c == '§') {
+                skip = true
+                continue
+            }
+            append(c)
+        }
+    }
 }
 
 object TextUtils {
