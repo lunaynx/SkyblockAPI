@@ -5,6 +5,7 @@ on:
         branches: [ "4.0" ]
     pull_request:
         branches: [ "4.0" ]
+    workflow_dispatch:
 
 permissions:
     contents: read
